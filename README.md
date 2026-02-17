@@ -1,4 +1,4 @@
-# WebDesign_mouse
+# Mouse Pointer Design
 
 A modern, responsive robotics-themed landing page featuring beautiful custom mouse cursor effects and stunning visual design.
 
