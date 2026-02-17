@@ -1,34 +1,38 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background: #000;
   color: #fff;
   font-family: sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
   cursor: none;
 }
 
 .banner {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
 }
 
 .left-box {
   flex-basis: 20%;
   background: #002e52;
+  z-index: 10;
 }
 
 .right-box {
   flex-basis: 80%;
   position: relative;
+  overflow: hidden;
 }
 
 .logo {
-  /* width: 150px; */
+  max-width: 150px;
+  width: 100%;
   margin: 30px 0;
   border-radius: 80px;
 }
@@ -49,10 +53,11 @@ body {
 .search-box img {
   width: 18px;
   margin: auto 5px;
+  flex-shrink: 0;
 }
 
 .search-box input {
-  width: 80%;
+  width: 100%;
   border: 0;
   outline: none;
   background: transparent;
@@ -72,8 +77,13 @@ body {
 
 .wrapper ul li a {
   color: #797979;
-  font-size: 13px;
+  font-size: clamp(11px, 1.5vw, 13px);
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.wrapper ul li a:hover {
+  color: #3fc9f5;
 }
 
 nav {
@@ -83,24 +93,32 @@ nav {
 
 nav ul {
   display: flex;
+  flex-wrap: wrap;
 }
 
 nav ul li {
   list-style: none;
   margin-right: 70px;
+  margin-bottom: 10px;
 }
 
 nav ul li a {
   color: #fff;
-  font-size: 13px;
+  font-size: clamp(11px, 1.5vw, 13px);
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #3fc9f5;
 }
 
 .right-box h2 {
   margin-top: 5%;
   margin-left: 60px;
-  font-size: 55px;
+  font-size: clamp(28px, 5vw, 55px);
   letter-spacing: 3px;
+  line-height: 1.2;
 }
 
 .robot {
@@ -108,17 +126,19 @@ nav ul li a {
   bottom: 0;
   right: 6%;
   height: 93%;
+  max-height: 800px;
 }
 
 .robot img {
   height: 100%;
+  object-fit: contain;
 }
 
 .robot h1 {
   position: absolute;
   top: 100px;
   right: -40px;
-  font-size: 110px;
+  font-size: clamp(50px, 10vw, 110px);
   color: #e2e2e2;
   opacity: 0.1;
   z-index: -1;
@@ -131,7 +151,7 @@ nav ul li a {
 }
 
 .features img {
-  width: 50px;
+  width: clamp(35px, 5vw, 50px);
   margin-left: 40px;
 }
 
@@ -139,6 +159,10 @@ nav ul li a {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
+}
+
+.features div small {
+  font-size: clamp(9px, 1.2vw, 11px);
 }
 
 .features div:nth-child(2) {
@@ -150,9 +174,9 @@ nav ul li a {
 }
 
 .circle {
-  width: 180px;
-  height: 180px;
-  border: 40px solid rgba(255, 255, 255, 0.1);
+  width: clamp(100px, 15vw, 180px);
+  height: clamp(100px, 15vw, 180px);
+  border: clamp(20px, 3vw, 40px) solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   position: absolute;
   top: 40%;
@@ -162,11 +186,13 @@ nav ul li a {
 .pagination ul {
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .pagination ul li {
   list-style: none;
   margin-right: 20px;
+  margin-bottom: 5px;
 }
 
 .pagination ul li a {
@@ -175,6 +201,12 @@ nav ul li a {
   font-size: 12px;
   padding: 10px;
   border-bottom: 2px solid #fff;
+  transition: all 0.3s ease;
+}
+
+.pagination ul li a:hover {
+  color: #3fc9f5;
+  border-bottom-color: #3fc9f5;
 }
 
 .pagination {
@@ -189,7 +221,7 @@ nav ul li a {
 }
 
 .volume {
-  width: 25px;
+  width: clamp(20px, 3vw, 25px);
   position: absolute;
   right: 4%;
   bottom: 4%;
@@ -200,9 +232,10 @@ nav ul li a {
   width: 10px;
   background: #3fc9f5;
   border-radius: 50%;
-  position: absolute;
-  z-index: 1;
+  position: fixed;
+  z-index: 9999;
   display: none;
+  pointer-events: none;
 }
 
 .largeCursor {
@@ -210,14 +243,261 @@ nav ul li a {
   width: 40px;
   border: 2px solid #3fc9f5;
   border-radius: 50%;
-  position: absolute;
-  z-index: 1;
+  position: fixed;
+  z-index: 9998;
   display: none;
   transition-duration: 500ms;
   transition-timing-function: ease-out;
+  pointer-events: none;
 }
 
 a {
   position: relative;
   z-index: 2;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - TABLET & BELOW
+   ============================================ */
+
+/* Tablet Landscape - 1024px */
+@media (max-width: 1024px) {
+  .banner {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  body {
+    overflow-y: auto;
+  }
+  
+  .left-box {
+    flex-basis: auto;
+    width: 100%;
+    padding: 20px 0;
+  }
+  
+  .right-box {
+    flex-basis: auto;
+    width: 100%;
+    min-height: 80vh;
+    padding-bottom: 50px;
+  }
+  
+  .wrapper {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .logo {
+    max-width: 100px;
+    margin: 10px 0;
+  }
+  
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .vertical-line {
+    display: none;
+  }
+  
+  .wrapper ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .wrapper ul li {
+    margin: 0;
+  }
+  
+  nav {
+    margin: 30px 20px;
+  }
+  
+  nav ul li {
+    margin-right: 30px;
+  }
+  
+  .right-box h2 {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .robot {
+    right: 5%;
+    height: 70%;
+  }
+  
+  .features {
+    left: -150px;
+    bottom: 22%;
+  }
+  
+  .features img {
+    margin-left: 20px;
+  }
+  
+  .circle {
+    left: -80px;
+  }
+  
+  .pagination {
+    left: 20px;
+  }
+}
+
+/* Mobile Landscape & Tablet Portrait - 768px */
+@media (max-width: 768px) {
+  nav {
+    margin: 20px 15px;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  nav ul li {
+    margin-right: 0;
+  }
+  
+  .right-box h2 {
+    margin-left: 15px;
+    margin-top: 10%;
+  }
+  
+  .robot {
+    position: relative;
+    right: auto;
+    height: 400px;
+    margin: 40px auto 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .robot h1 {
+    top: 50px;
+    right: 50%;
+    transform: translateX(50%);
+    text-align: center;
+  }
+  
+  .features {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .features div {
+    margin-left: 0 !important;
+  }
+  
+  .circle {
+    display: none;
+  }
+  
+  .pagination {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: 30px 15px;
+  }
+  
+  .volume {
+    right: 15px;
+    bottom: 15px;
+  }
+  
+  /* Hide custom cursors on touch devices */
+  .smallCursor,
+  .largeCursor {
+    display: none !important;
+  }
+  
+  body {
+    cursor: auto;
+  }
+}
+
+/* Mobile Portrait - 480px */
+@media (max-width: 480px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .logo {
+    max-width: 80px;
+    align-self: center;
+  }
+  
+  .search-box {
+    width: 100%;
+  }
+  
+  nav {
+    margin: 15px 10px;
+  }
+  
+  .right-box h2 {
+    margin: 15px 10px;
+    font-size: clamp(24px, 8vw, 32px);
+  }
+  
+  .robot {
+    height: 300px;
+  }
+  
+  .robot h1 {
+    font-size: clamp(40px, 15vw, 60px);
+  }
+  
+  .features img {
+    width: 35px;
+    margin-left: 15px;
+  }
+  
+  .pagination {
+    margin: 20px 10px;
+  }
+  
+  .pagination ul {
+    justify-content: center;
+  }
+  
+  .pagination ul li {
+    margin-right: 10px;
+  }
+  
+  .pagination ul li a {
+    font-size: 10px;
+    padding: 5px;
+  }
+  
+  .pagination ul li.active a {
+    font-size: 16px;
+  }
+}
+
+/* Touch device detection - hide custom cursor */
+@media (hover: none) and (pointer: coarse) {
+  body {
+    cursor: auto !important;
+  }
+  
+  .smallCursor,
+  .largeCursor {
+    display: none !important;
+  }
 }
